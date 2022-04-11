@@ -1,0 +1,58 @@
+
+This project will use webpack to organize src and dist files. Additionally, it will
+contain the following .js files:
+
+index.js
+newList.js
+newTask.js
+deleteList.js
+deleteTask.js
+editTask.js
+
+These files will be kept separate to keep code clean and maximize modularity. index.js
+will be written with the intent of using it as a controller for all other file methods.
+The index.html file in the /dist directory will contain the html for all of the non-
+moving parts of the page, while index.html will primarily operate within a sidebar
+and the contents section
+
+
+index.js {
+
+    if listArray already exists {
+        for list in listArray {
+            add list to DOM
+        }
+    } else {
+        listArray = [defaultList];
+        newListButton.addEventListener("click", () => {
+
+        addList(); // this will add a list the the list array
+        addListtoDom(); // this will add the list to the DOM
+    });
+
+        newTaskButton.addEventListener("click", () => {
+
+            addTask(); // this will add a task to the current list
+            addTaskToDom(); // this will add the task to the DOM
+        });
+
+        deleteTaskButton.addEventListener("click", () => {
+
+            deleteTask(); // this will delete a task from the current list
+            removeTaskFromDom(); // this will delete the task from the DOM
+        });
+
+        deleteListButton.addEventListener("click", () => {
+
+            deleteList(); // this will delete a list from the current list
+            removeListFromDom(); // this will delete the list from the DOM
+        });
+
+        editTaskButton.addEventListener("click", () => {
+
+            editTask(); // this will edit a task in the current list
+        });
+    }
+    
+}
+

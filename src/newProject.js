@@ -1,9 +1,12 @@
+import generateTab, { deleteTab } from "./createProjectTab";
 
 function newProject(id) {
 
     const taskList = [ ];
     let taskCount = 0;
-    const addTask = function() {
+    const projectID = id;
+    const projectName = prompt("project name? ");
+    function addTask() {
 
         const title = prompt("what do you need to do? ");
         const dueDate = prompt("when is this due?");
@@ -13,12 +16,13 @@ function newProject(id) {
         const priority = prompt("is this a high priority item? ");
         const todoItem = {title, taskID, summary, dueDate, priority}
         taskList.push(todoItem);
+        taskCount++
         console.log(taskList, "\n", todoItem);
     };
-    const projectID = id;
-    const projectName = prompt("project name? ");
     return {projectName, projectID, taskList, addTask};
 };
+
+
 
 function addProjectToDOM(project) {
 
@@ -30,7 +34,8 @@ function addProjectToDOM(project) {
 
     addProject.addEventListener("click", () => {
 
-        alert(project.projectName);
+        deleteTab()
+        generateTab(project);
     });
 }
 

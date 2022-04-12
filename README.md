@@ -1,4 +1,4 @@
-# ToDo-List
+# Todo-List
 
 This project is to create a working Todo-list application that can be accessed through a person's
 browser. The end product will have the ability to save data to the local drive, so when a person

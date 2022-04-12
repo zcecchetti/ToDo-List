@@ -95,5 +95,35 @@ body {
     flex: 1;
     flex-direction: column;
     justify-content: flex-start;
+    gap: 8px;
+}
+
+#sidebarContainer {
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    font-size: 1.25rem;
+    gap: 8px;
+}
+
+#sidebarContainer>button {
+
+    width: 100%;
+    background-color: #f2f6ff;
+    border: #4d4d4d solid 2px;
+    color: #4d4d4d;
+}
+
+#sidebarContainer>button:hover {
+
+    background-color: #e3e3e3;
+}
+
+#sidebarContainer>button:active {
+
+    border: black solid 2px;
+    color: black;
 }
 

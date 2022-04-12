@@ -3,9 +3,9 @@ This project will use webpack to organize src and dist files. Additionally, it w
 contain the following .js files:
 
 index.js
-newList.js
+newProject.js
 newTask.js
-deleteList.js
+deleteProject.js
 deleteTask.js
 editTask.js
 

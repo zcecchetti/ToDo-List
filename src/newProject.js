@@ -28,7 +28,7 @@ function addProjectToDOM(project) {
 
     const thisProject = project;
     const container = document.getElementById("sidebarContainer");
-    const addProject = document.createElement("button")
+    const addProject = document.createElement("button");
     addProject.textContent = thisProject.projectName;
     container.appendChild(addProject);
 
@@ -39,4 +39,21 @@ function addProjectToDOM(project) {
     });
 }
 
-export {newProject, addProjectToDOM};
+function projectForm() {
+
+    const container = document.getElementById("sidebarContainer");
+    const addProjectForm = document.createElement("form");
+    addProjectForm.setAttribute("id", "projectForm");
+    const inputName = document.createElement("input");
+    inputName.setAttribute("type", "text");
+    inputName.setAttribute("id", "projectName");
+    inputName.setAttribute("name", "projectName");
+    inputName.setAttribute("maxlength", "45");
+    inputName.setAttribute("required", "");
+
+    addProjectForm.appendChild(inputName);
+    container.appendChild(addProjectForm);
+
+};
+
+export {newProject, addProjectToDOM, projectForm};

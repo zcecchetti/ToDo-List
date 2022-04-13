@@ -6,15 +6,19 @@ export default function generateTab(projectInList) {
     taskTab.setAttribute("id", "taskTab");
     container.appendChild(taskTab);
 
+    const taskTabHeader = document.createElement("div");
+    taskTabHeader.setAttribute("id", "tabHeader");
+    taskTab.appendChild(taskTabHeader);
+
     const listName = document.createElement("div");
     listName.setAttribute("id", "listName");
     listName.textContent = projectInList.projectName;
-    taskTab.appendChild(listName);
+    taskTabHeader.appendChild(listName);
 
     const addTaskButton = document.createElement("button");
     addTaskButton.setAttribute("id", "addTaskButton");
     addTaskButton.textContent = "+ Add New Task";
-    taskTab.appendChild(addTaskButton);
+    taskTabHeader.appendChild(addTaskButton);
 
     const taskContainer = document.createElement("div");
     taskContainer.setAttribute("id", "taskContainer");
@@ -55,12 +59,27 @@ function addTaskToDOM(projectInList, taskID) {
     const container = document.getElementById("taskContainer");
     const newTask = document.createElement("div");
     newTask.setAttribute("id", `${taskID}`);
-    newTask.textContent = currentTask.title;
-    newTask.classList.add("projectTask")
+    newTask.classList.add("taskBox");
 
-    const taskInfo = document.createElement("div");
-    taskInfo.textContent = `${currentTask.summary} | Due: ${currentTask.dueDate}`;
-    taskInfo.classList.add("taskInfo");
-    newTask.appendChild(taskInfo);
+    const taskTitle = document.createElement("div");
+    taskTitle.textContent = currentTask.title;
+    taskTitle.classList.add("taskTitle")
+    newTask.appendChild(taskTitle);
+
+    const taskDue = document.createElement("div");
+    taskDue.textContent = `Due: ${currentTask.dueDate}`;
+    taskDue.classList.add("dueDate")
+    newTask.appendChild(taskDue);
+
+    const taskPriority = document.createElement("div");
+    taskPriority.textContent = `${currentTask.priority} Priority`;
+    taskPriority.classList.add("taskPriority");
+    newTask.appendChild(taskPriority);
+
+    const taskDescription = document.createElement("div");
+    taskDescription.textContent = currentTask.summary;
+    taskDescription.classList.add("taskSummary");
+    newTask.appendChild(taskDescription);
+
     container.appendChild(newTask);
 };

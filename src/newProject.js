@@ -1,4 +1,4 @@
-import generateTab, { deleteTab } from "./createProjectTab";
+import generateTab, { deleteTab, addTaskToDOM, removeTaskForm } from "./createProjectTab";
 
 const projectList = [ ];
 
@@ -6,18 +6,11 @@ function newProject(projectName) {
 
     const taskList = [ ];
     const projectID = `project${projectList.length}`;
-    // const projectName = prompt("project name? ");
-    function addTask() {
+    function addTask(title, summary, dueDate, priority) {
 
-        const title = prompt("what do you need to do? ");
-        const dueDate = prompt("when is this due?");
-        // can later put a variable here to check how many days are left
-        const taskID = "task" + taskList.length;
-        const summary = prompt("what are the steps to complete this? ");
-        const priority = prompt("is this a high priority item? ");
-        const todoItem = {title, taskID, summary, dueDate, priority}
+        const taskLoc = taskList.length;
+        const todoItem = {title, taskLoc, summary, dueDate, priority}
         taskList.push(todoItem);
-        console.log(taskList, "\n", todoItem);
     };
     return {projectName, projectID, taskList, addTask};
 };
@@ -44,7 +37,6 @@ window.createProject = function() {
     projectList.push(project);
     const index = findIndex(project)
     addProjectToDOM(projectList[index]);
-    // console.log(projectList[index]);
     removeForm();
 };
 
@@ -83,4 +75,57 @@ function removeForm() {
     container.removeChild(formRemove);
 };
 
-export {projectForm};
+function getTaskTitle() {
+
+    const taskTitle = document.getElementById("inputName").value;
+    return taskTitle;
+};
+
+function getTaskSummary() {
+
+    const taskSummary = document.getElementById("inputSummary").value;
+    return taskSummary;
+};
+
+function getDueDate() {
+
+    const dueDate = document.getElementById("inputDue").value;
+    return dueDate;
+};
+
+function getPriority() {
+
+    const priority = document.getElementById("inputPriority").value;
+    return priority;
+};
+
+function getCurrentProject() {
+
+    const listName = document.getElementById("listName").value;
+    for (let index in projectList) {
+
+        if (index.projectName === listName) {
+            const project = projectList[index];
+            return project
+        }
+    }
+
+};
+
+function getAndCreateTask() {
+
+    const taskTitle = getTaskTitle();
+    const taskSummary = getTaskSummary();
+    const dueDate = getDueDate();
+    const priority = getPriority();
+    const projectInList = getCurrentProject();
+
+    projectInList.addTask(taskTitle, taskSummary, dueDate, priority);
+    let taskIndex = projectInList.taskList.length - 1;
+    const taskLoc = projectInList.taskList[taskIndex].taskLoc;
+
+    deleteTab();
+    generateTab(projectInList);
+};
+
+export {projectForm, projectList, getAndCreateTask};

@@ -110,12 +110,13 @@ function createTaskForm() {
     inputSummary.setAttribute("id", "inputSummary");
     inputSummary.setAttribute("name", "taskSummary");
     inputSummary.setAttribute("placeholder", "Specifics for this task");
-    inputSummary.setAttribute("maxlength", "500");
+    inputSummary.setAttribute("maxlength", "2000");
 
     taskForm.appendChild(inputSummary);
 
     const labelDue = document.createElement("label");
     labelDue.setAttribute("for", "inputDue");
+    labelDue.setAttribute("id", "labelDue");
     labelDue.textContent = "Due Date: "
     const inputDue = document.createElement("input");
     inputDue.setAttribute("type", "date");
@@ -125,6 +126,10 @@ function createTaskForm() {
     taskForm.appendChild(labelDue);
     taskForm.appendChild(inputDue);
 
+    const labelPriority = document.createElement("label");
+    labelPriority.setAttribute("for", "inputPriority");
+    labelPriority.setAttribute("id", "labelPriority");
+    labelPriority.textContent = "Priority: "
     const inputPriority = document.createElement("input");
     inputPriority.setAttribute("list", "priorityLevels");
     inputPriority.setAttribute("id", "inputPriority");
@@ -136,23 +141,19 @@ function createTaskForm() {
     const optionLow = document.createElement("option");
     optionLow.setAttribute("value", "Low");
     const optionMed = document.createElement("option");
-    optionMed.setAttribute("value", "Med");
+    optionMed.setAttribute("value", "Medium");
     const optionHigh = document.createElement("option");
     optionHigh.setAttribute("value", "High");
     const optionUrg = document.createElement("option");
-    optionUrg.setAttribute("value", "Urg");
+    optionUrg.setAttribute("value", "Urgent");
 
+    taskForm.appendChild(labelPriority);
     taskForm.appendChild(inputPriority);
     taskForm.appendChild(dropDown);
     dropDown.appendChild(optionLow);
     dropDown.appendChild(optionMed);
     dropDown.appendChild(optionHigh);
     dropDown.appendChild(optionUrg);
-
-    const submitTask = document.createElement("button");
-    submitTask.setAttribute("type", "submit");
-    submitTask.textContent = "Add Task";
-    taskForm.appendChild(submitTask);
 };
 
 export function removeTaskForm() {
@@ -178,10 +179,13 @@ export function createTaskFormTab(projectInList) {
     listName.textContent = projectInList.projectName;
     taskTabHeader.appendChild(listName);
 
-    const addTaskButton = document.createElement("button");
-    addTaskButton.setAttribute("id", "addTaskButton");
-    addTaskButton.textContent = "+ Add New Task";
-    taskTabHeader.appendChild(addTaskButton);
+    const submitButton = document.createElement("button");
+    submitButton.setAttribute("type", "submit");
+    submitButton.setAttribute("id", "submitTaskButton")
+    submitButton.textContent = "Save Task";
+    submitButton.setAttribute("form", "taskForm")
+    taskTabHeader.appendChild(submitButton);
 
     createTaskForm();
+
 };

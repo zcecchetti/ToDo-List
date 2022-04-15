@@ -8,6 +8,9 @@ function newProject(projectName) {
     const projectID = `project${projectList.length}`;
     function addTask(title, summary, dueDate, priority) {
 
+        if (!priority) {
+            priority = "Low";
+        }
         const taskLoc = taskList.length;
         const todoItem = {title, taskLoc, summary, dueDate, priority}
         taskList.push(todoItem);

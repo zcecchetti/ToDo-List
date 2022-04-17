@@ -109,10 +109,11 @@ function getPriority() {
 
 function getCurrentProject() {
 
-    const listName = document.getElementById("listName").textContent;
+    const listName = document.getElementById("listName");
+    const projectIdentification = listName.className;
     for (let i = 0; i < projectList.length; i++) {
 
-        if (projectList[i].projectName === listName) {
+        if (projectList[i].projectID === projectIdentification) {
             const project = projectList[i];
             return project
         }
@@ -129,7 +130,7 @@ function getAndCreateTask() {
     const projectInList = getCurrentProject();
 
     projectInList.addTask(taskTitle, taskSummary, dueDate, priority);
-    let taskIndex = projectInList.taskList.length - 1;
+    // let taskIndex = projectInList.taskList.length - 1;
     // const taskLoc = projectInList.taskList[taskIndex].taskLoc;
 
     deleteTab();

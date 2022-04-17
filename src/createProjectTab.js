@@ -14,6 +14,7 @@ export default function generateTab(projectInList) {
     const listName = document.createElement("div");
     listName.setAttribute("id", "listName");
     listName.textContent = projectInList.projectName;
+    listName.classList.add(projectInList.projectID);
     taskTabHeader.appendChild(listName);
 
     const addTaskButton = document.createElement("button");
@@ -183,6 +184,7 @@ export function createTaskFormTab(projectInList) {
     const listName = document.createElement("div");
     listName.setAttribute("id", "listName");
     listName.textContent = projectInList.projectName;
+    listName.classList.add(projectInList.projectID);
     taskTabHeader.appendChild(listName);
 
     const submitButton = document.createElement("button");
@@ -210,6 +212,7 @@ function viewFullTask(projectInList, taskLoc) {
     const listName = document.createElement("div");
     listName.setAttribute("id", "listName");
     listName.textContent = projectInList.projectName;
+    listName.classList.add(projectInList.projectID);
     taskTabHeader.appendChild(listName);
 
     addTasktoFullView(projectInList, taskLoc)

@@ -20,7 +20,11 @@ function newProject(projectName) {
         const todoItem = {title, taskLoc, summary, dueDate, priority}
         taskList.push(todoItem);
     };
-    return {projectName, projectID, taskList, addTask};
+    function removeTask(taskLoc) {
+
+        taskList.splice(taskLoc, 1);
+    };
+    return {projectName, projectID, taskList, addTask, removeTask};
 };
 
 function addProjectToDOM(project) {

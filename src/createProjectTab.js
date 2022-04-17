@@ -215,6 +215,23 @@ function viewFullTask(projectInList, taskLoc) {
     listName.classList.add(projectInList.projectID);
     taskTabHeader.appendChild(listName);
 
+    const addTaskButton = document.createElement("button");
+    addTaskButton.setAttribute("id", "addTaskButton");
+    addTaskButton.textContent = "+ Add New Task";
+    taskTabHeader.appendChild(addTaskButton);
+
+    const removeTaskButton = document.createElement("button");
+    removeTaskButton.setAttribute("id", "removeTaskButton");
+    removeTaskButton.textContent = "Delete Task";
+    taskTabHeader.appendChild(removeTaskButton);
+
+    removeTaskButton.addEventListener("click", () => {
+
+        projectInList.removeTask(taskLoc);
+        deleteTab()
+        generateTab(projectInList);
+    });
+
     addTasktoFullView(projectInList, taskLoc)
 }
 

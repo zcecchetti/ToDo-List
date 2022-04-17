@@ -66,7 +66,7 @@ export function addTaskToDOM(projectInList, taskLoc) {
     newTask.appendChild(taskTitle);
 
     const taskDue = document.createElement("div");
-    taskDue.textContent = `Due: ${currentTask.dueDate}`;
+    taskDue.textContent = "Due: " + ` ${currentTask.dueDate}`;
     taskDue.classList.add("dueDate")
     newTask.appendChild(taskDue);
 
@@ -189,3 +189,22 @@ export function createTaskFormTab(projectInList) {
     createTaskForm();
 
 };
+
+// function viewFullTask() {
+
+//     const container = document.getElementById("content");
+//     const taskTab = document.createElement("div");
+//     taskTab.setAttribute("id", "taskTab");
+//     container.appendChild(taskTab);
+
+//     const taskTabHeader = document.createElement("div");
+//     taskTabHeader.setAttribute("id", "tabHeader");
+//     taskTab.appendChild(taskTabHeader);
+
+//     const listName = document.createElement("div");
+//     listName.setAttribute("id", "listName");
+//     listName.textContent = projectInList.projectName;
+//     taskTabHeader.appendChild(listName);
+
+//     addTaskToDOM()
+// }

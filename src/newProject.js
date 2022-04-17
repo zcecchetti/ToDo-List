@@ -1,4 +1,5 @@
 import generateTab, { deleteTab, addTaskToDOM, removeTaskForm } from "./createProjectTab";
+import { format, addDays } from 'date-fns'
 
 const projectList = [ ];
 
@@ -11,6 +12,10 @@ function newProject(projectName) {
         if (!priority) {
             priority = "Low";
         }
+        if (dueDate) {
+            dueDate = addDays(new Date(dueDate), 1);
+            dueDate = format(new Date(dueDate), "EEE MMM d, yyyy");
+        };
         const taskLoc = taskList.length;
         const todoItem = {title, taskLoc, summary, dueDate, priority}
         taskList.push(todoItem);
@@ -104,11 +109,11 @@ function getPriority() {
 
 function getCurrentProject() {
 
-    const listName = document.getElementById("listName").value;
-    for (let index in projectList) {
+    const listName = document.getElementById("listName").textContent;
+    for (let i = 0; i < projectList.length; i++) {
 
-        if (index.projectName === listName) {
-            const project = projectList[index];
+        if (projectList[i].projectName === listName) {
+            const project = projectList[i];
             return project
         }
     }
@@ -125,7 +130,7 @@ function getAndCreateTask() {
 
     projectInList.addTask(taskTitle, taskSummary, dueDate, priority);
     let taskIndex = projectInList.taskList.length - 1;
-    const taskLoc = projectInList.taskList[taskIndex].taskLoc;
+    // const taskLoc = projectInList.taskList[taskIndex].taskLoc;
 
     deleteTab();
     generateTab(projectInList);

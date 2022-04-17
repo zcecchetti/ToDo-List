@@ -24,7 +24,20 @@ function newProject(projectName) {
 
         taskList.splice(taskLoc, 1);
     };
-    return {projectName, projectID, taskList, addTask, removeTask};
+
+    function editTask(taskLoc, title, summary, dueDate, priority) {
+
+        const todoItem = taskList[taskLoc];
+        todoItem.title = title;
+        todoItem.summary = summary;
+        if (dueDate) {
+            dueDate = addDays(new Date(dueDate), 1);
+            dueDate = format(new Date(dueDate), "EEE MMM d, yyyy");
+        };
+        todoItem.dueDate = dueDate;
+        todoItem.priority = priority;
+    }
+    return {projectName, projectID, taskList, addTask, removeTask, editTask};
 };
 
 function addProjectToDOM(project) {
@@ -125,6 +138,13 @@ function getCurrentProject() {
 
 };
 
+function getCurrentTask() {
+
+    const taskName = document.getElementById("inputName");
+    const taskLoc = taskName.className;
+    return taskLoc
+};
+
 function getAndCreateTask() {
 
     const taskTitle = getTaskTitle();
@@ -134,11 +154,24 @@ function getAndCreateTask() {
     const projectInList = getCurrentProject();
 
     projectInList.addTask(taskTitle, taskSummary, dueDate, priority);
-    // let taskIndex = projectInList.taskList.length - 1;
-    // const taskLoc = projectInList.taskList[taskIndex].taskLoc;
 
     deleteTab();
     generateTab(projectInList);
 };
 
-export {projectForm, projectList, getAndCreateTask};
+function getAndUpdateTask() {
+
+    const taskTitle = getTaskTitle();
+    const taskSummary = getTaskSummary();
+    const dueDate = getDueDate();
+    const priority = getPriority();
+    const projectInList = getCurrentProject();
+    const taskLoc = getCurrentTask();
+
+    projectInList.editTask(taskLoc, taskTitle, taskSummary, dueDate, priority);
+
+    deleteTab()
+    generateTab(projectInList);
+};
+
+export {projectForm, projectList, getAndCreateTask, getAndUpdateTask};

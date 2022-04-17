@@ -1,4 +1,5 @@
-import { getAndCreateTask } from "./newProject";
+import { getAndCreateTask, getAndUpdateTask } from "./newProject";
+import { format } from 'date-fns'
 
 export default function generateTab(projectInList) {
 
@@ -215,15 +216,28 @@ function viewFullTask(projectInList, taskLoc) {
     listName.classList.add(projectInList.projectID);
     taskTabHeader.appendChild(listName);
 
-    const addTaskButton = document.createElement("button");
-    addTaskButton.setAttribute("id", "addTaskButton");
-    addTaskButton.textContent = "+ Add New Task";
-    taskTabHeader.appendChild(addTaskButton);
+    const editTaskButton = document.createElement("button");
+    editTaskButton.setAttribute("id", "addTaskButton");
+    editTaskButton.textContent = "Edit Task";
+    taskTabHeader.appendChild(editTaskButton);
 
     const removeTaskButton = document.createElement("button");
     removeTaskButton.setAttribute("id", "removeTaskButton");
     removeTaskButton.textContent = "Delete Task";
     taskTabHeader.appendChild(removeTaskButton);
+
+    editTaskButton.addEventListener("click", () => {
+
+        deleteTab();
+        const title = projectInList.taskList[taskLoc].title;
+        const summary = projectInList.taskList[taskLoc].summary;
+        let dueDate = projectInList.taskList[taskLoc].dueDate;
+        if (dueDate) {
+            dueDate = format(new Date(dueDate), "yyyy-MM-dd");
+        }
+        const priority = projectInList.taskList[taskLoc].priority;
+        editTaskForm(projectInList, taskLoc, title, summary, dueDate, priority);
+    });
 
     removeTaskButton.addEventListener("click", () => {
 
@@ -233,7 +247,12 @@ function viewFullTask(projectInList, taskLoc) {
     });
 
     addTasktoFullView(projectInList, taskLoc)
-}
+};
+
+window.updateTask = function() {
+
+    getAndUpdateTask();
+};
 
 function addTasktoFullView(projectInList, taskLoc) {
 
@@ -264,4 +283,96 @@ function addTasktoFullView(projectInList, taskLoc) {
     newTask.appendChild(taskDescription);
 
     container.appendChild(newTask);
+};
+
+function editTaskForm(projectInList, taskLoc, title, summary, dueDate, priority) {
+
+    const container = document.getElementById("content");
+    const taskTab = document.createElement("div");
+    taskTab.setAttribute("id", "taskTab");
+    container.appendChild(taskTab);
+
+    const taskTabHeader = document.createElement("div");
+    taskTabHeader.setAttribute("id", "tabHeader");
+    taskTab.appendChild(taskTabHeader);
+
+    const listName = document.createElement("div");
+    listName.setAttribute("id", "listName");
+    listName.textContent = projectInList.projectName;
+    listName.classList.add(projectInList.projectID);
+    taskTabHeader.appendChild(listName);
+
+    const submitButton = document.createElement("button");
+    submitButton.setAttribute("type", "submit");
+    submitButton.setAttribute("id", "submitTaskButton")
+    submitButton.textContent = "Save Task";
+    submitButton.setAttribute("form", "taskForm")
+    taskTabHeader.appendChild(submitButton);
+    
+    const taskContainer = document.getElementById("taskTab");
+    const taskForm = document.createElement("form");
+    taskForm.setAttribute("id", "taskForm");
+    taskForm.setAttribute("onsubmit", "updateTask(); return false");
+    taskContainer.appendChild(taskForm);
+
+    const inputName = document.createElement("input");
+    inputName.setAttribute("type", "text");
+    inputName.setAttribute("id", "inputName");
+    inputName.setAttribute("name", "taskName");
+    inputName.setAttribute("maxlength", "50");
+    inputName.setAttribute("value", title);
+    inputName.setAttribute("required", "");
+    inputName.classList.add(taskLoc);
+
+    taskForm.appendChild(inputName);
+
+    const inputSummary = document.createElement("textarea");
+    inputSummary.setAttribute("id", "inputSummary");
+    inputSummary.setAttribute("name", "taskSummary");
+    inputSummary.textContent = summary;
+    inputSummary.setAttribute("maxlength", "2000");
+
+    taskForm.appendChild(inputSummary);
+
+    const labelDue = document.createElement("label");
+    labelDue.setAttribute("for", "inputDue");
+    labelDue.setAttribute("id", "labelDue");
+    labelDue.textContent = "Due Date: "
+    const inputDue = document.createElement("input");
+    inputDue.setAttribute("type", "date");
+    inputDue.setAttribute("id", "inputDue");
+    inputDue.setAttribute("name", "dueDate");
+    inputDue.setAttribute("value", dueDate);
+
+    taskForm.appendChild(labelDue);
+    taskForm.appendChild(inputDue);
+
+    const labelPriority = document.createElement("label");
+    labelPriority.setAttribute("for", "inputPriority");
+    labelPriority.setAttribute("id", "labelPriority");
+    labelPriority.textContent = "Priority: "
+    const inputPriority = document.createElement("input");
+    inputPriority.setAttribute("list", "priorityLevels");
+    inputPriority.setAttribute("id", "inputPriority");
+    inputPriority.setAttribute("value", priority);
+    inputPriority.setAttribute("name", "priority");
+    const dropDown = document.createElement("datalist");
+    dropDown.setAttribute("id", "priorityLevels");
+
+    const optionLow = document.createElement("option");
+    optionLow.setAttribute("value", "Low");
+    const optionMed = document.createElement("option");
+    optionMed.setAttribute("value", "Medium");
+    const optionHigh = document.createElement("option");
+    optionHigh.setAttribute("value", "High");
+    const optionUrg = document.createElement("option");
+    optionUrg.setAttribute("value", "Urgent");
+
+    taskForm.appendChild(labelPriority);
+    taskForm.appendChild(inputPriority);
+    taskForm.appendChild(dropDown);
+    dropDown.appendChild(optionLow);
+    dropDown.appendChild(optionMed);
+    dropDown.appendChild(optionHigh);
+    dropDown.appendChild(optionUrg);
 };

@@ -81,6 +81,12 @@ export function addTaskToDOM(projectInList, taskLoc) {
     newTask.appendChild(taskDescription);
 
     container.appendChild(newTask);
+
+    newTask.addEventListener("click", () => {
+
+        deleteTab();
+        viewFullTask(projectInList, taskLoc);
+    });
 };
 
 window.createTask = function() {
@@ -190,21 +196,52 @@ export function createTaskFormTab(projectInList) {
 
 };
 
-// function viewFullTask() {
+function viewFullTask(projectInList, taskLoc) {
 
-//     const container = document.getElementById("content");
-//     const taskTab = document.createElement("div");
-//     taskTab.setAttribute("id", "taskTab");
-//     container.appendChild(taskTab);
+    const container = document.getElementById("content");
+    const taskTab = document.createElement("div");
+    taskTab.setAttribute("id", "taskTab");
+    container.appendChild(taskTab);
 
-//     const taskTabHeader = document.createElement("div");
-//     taskTabHeader.setAttribute("id", "tabHeader");
-//     taskTab.appendChild(taskTabHeader);
+    const taskTabHeader = document.createElement("div");
+    taskTabHeader.setAttribute("id", "tabHeader");
+    taskTab.appendChild(taskTabHeader);
 
-//     const listName = document.createElement("div");
-//     listName.setAttribute("id", "listName");
-//     listName.textContent = projectInList.projectName;
-//     taskTabHeader.appendChild(listName);
+    const listName = document.createElement("div");
+    listName.setAttribute("id", "listName");
+    listName.textContent = projectInList.projectName;
+    taskTabHeader.appendChild(listName);
 
-//     addTaskToDOM()
-// }
+    addTasktoFullView(projectInList, taskLoc)
+}
+
+function addTasktoFullView(projectInList, taskLoc) {
+
+    const currentTask = projectInList.taskList[taskLoc];
+    const container = document.getElementById("taskTab");
+    const newTask = document.createElement("div");
+    newTask.setAttribute("id", `${taskLoc}`);
+    newTask.classList.add("taskBox");
+
+    const taskTitle = document.createElement("div");
+    taskTitle.textContent = currentTask.title;
+    taskTitle.classList.add("taskTitle")
+    newTask.appendChild(taskTitle);
+
+    const taskDue = document.createElement("div");
+    taskDue.textContent = "Due: " + ` ${currentTask.dueDate}`;
+    taskDue.classList.add("dueDate")
+    newTask.appendChild(taskDue);
+
+    const taskPriority = document.createElement("div");
+    taskPriority.textContent = `${currentTask.priority} Priority`;
+    taskPriority.classList.add("taskPriority");
+    newTask.appendChild(taskPriority);
+
+    const taskDescription = document.createElement("div");
+    taskDescription.textContent = currentTask.summary;
+    taskDescription.classList.add("fullSummary");
+    newTask.appendChild(taskDescription);
+
+    container.appendChild(newTask);
+};

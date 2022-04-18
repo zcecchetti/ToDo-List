@@ -1,5 +1,5 @@
 import generateTab, { deleteTab, addTaskToDOM, removeTaskForm } from "./createProjectTab";
-import { format, addDays } from 'date-fns'
+import { format, addDays, isBefore, isEqual, isAfter } from 'date-fns'
 
 const projectList = [ ];
 
@@ -12,13 +12,30 @@ function newProject(projectName) {
         if (!priority) {
             priority = "Low";
         }
-        if (dueDate) {
-            dueDate = addDays(new Date(dueDate), 1);
-            dueDate = format(new Date(dueDate), "EEE MMM d, yyyy");
+        // if (dueDate) {
+        //     dueDate = addDays(new Date(dueDate), 1);
+        //     dueDate = format(new Date(dueDate), "EEE MMM d, yyyy");
+        // };
+        const todoItem = {title, summary, dueDate, priority};
+
+        for (let i = 0; i < taskList.length; i++) {
+            let priorDate = isBefore(new Date(todoItem.dueDate), new Date(taskList[i].dueDate));
+            let equalDate = isEqual(new Date(todoItem.dueDate), new Date(taskList[i].dueDate));
+            if (priorDate) {
+                taskList.splice(i, 0, todoItem);
+                i = taskList.length;
+            } else if (equalDate) {
+                taskList.splice(i + 1, 0, todoItem);
+                i = taskList.length;
+            } else if (i === taskList.length - 1) {
+                taskList.push(todoItem);
+                i = taskList.length
+            };
         };
-        const taskLoc = taskList.length;
-        const todoItem = {title, taskLoc, summary, dueDate, priority}
-        taskList.push(todoItem);
+
+        if (taskList.length === 0) {
+            taskList.push(todoItem);
+        };
     };
     function removeTask(taskLoc) {
 
@@ -37,6 +54,33 @@ function newProject(projectName) {
         todoItem.dueDate = dueDate;
         todoItem.priority = priority;
     }
+
+    // function orderTasks() {
+
+    //     const newList = [ ];
+    //     for (let i = 0; i < taskList.length; i++){
+
+    //         const nextTodo = taskList[i];
+    //         for (let j = 0; j < newList.length; j++) {
+
+    //             if (nextTodo < newList[j]) {
+    //                 newList.splice[j - 1, 0, nextTodo];
+    //                 j = newList.length;
+    //             };             
+    //         };
+    //     };
+    //     taskList.splice(0, taskList.length);
+    //     for (let i = 0; i < newList.length; i++) {
+
+    //         const itemToAdd = newList[i];
+    //         const title = itemToAdd.title;
+    //         const summary = itemToAdd.summary;
+    //         const dueDate = itemToAdd.dueDate;
+    //         const priority = itemToAdd.priority;
+
+    //         addTask(title, summary, dueDate, priority);
+    //     };
+    // };
     return {projectName, projectID, taskList, addTask, removeTask, editTask};
 };
 

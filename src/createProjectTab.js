@@ -1,5 +1,5 @@
 import { getAndCreateTask, getAndUpdateTask } from "./newProject";
-import { format } from 'date-fns'
+import { format, addDays } from 'date-fns'
 
 export default function generateTab(projectInList) {
 
@@ -67,8 +67,13 @@ export function addTaskToDOM(projectInList, taskLoc) {
     taskTitle.classList.add("taskTitle")
     newTask.appendChild(taskTitle);
 
+    let dueDate = currentTask.dueDate;
+    if (dueDate) {
+        dueDate = addDays(new Date(dueDate), 1);
+        dueDate = format(new Date(dueDate), "EEE MMM d, yyyy");
+    };
     const taskDue = document.createElement("div");
-    taskDue.textContent = "Due: " + ` ${currentTask.dueDate}`;
+    taskDue.textContent = "Due: " + ` ${dueDate}`;
     taskDue.classList.add("dueDate")
     newTask.appendChild(taskDue);
 

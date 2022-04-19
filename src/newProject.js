@@ -40,15 +40,6 @@ function newProject(projectName) {
 
     function editTask(taskLoc, title, summary, dueDate, priority) {
 
-        // const todoItem = taskList[taskLoc];
-        // todoItem.title = title;
-        // todoItem.summary = summary;
-        // if (dueDate) {
-        //     dueDate = addDays(new Date(dueDate), 1);
-        //     dueDate = format(new Date(dueDate), "EEE MMM d, yyyy");
-        // };
-        // todoItem.dueDate = dueDate;
-        // todoItem.priority = priority;
         removeTask(taskLoc);
         addTask(title, summary, dueDate, priority);
     }

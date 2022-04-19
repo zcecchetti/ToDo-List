@@ -2,8 +2,8 @@
 
     font-size: 16px;
     font-family: 'Gill Sans', 'Gill Sans MT', 'Calibri', 'Trebuchet MS', sans-serif;
-    color: #4d4d4d;
-    background-color: #f5f7f9;
+    color: black;
+    background-color: rgb(255, 255, 255);
 }
 
 body {
@@ -12,11 +12,13 @@ body {
     display: grid;
     grid-template-columns: 18.75rem 1fr;
     grid-template-rows: 100px minmax(calc(100vh - 120px), 1fr) 20px;
+    gap: 8px;
+    background-color: #e3e3e3;
 }
 
 #header {
 
-    color: #4d4d4d;
+    /* color: black; */
     display: flex;
     flex-direction: column;
     grid-column: 1 / 3;
@@ -24,25 +26,29 @@ body {
     justify-content: center;
     align-items: center;
     box-shadow: 0 0 5px #4d4d4d;
+    background-color: #4781ff;
+    color: white;
 }
 
 #sidebar {
 
     grid-column: 1 / 2;
     grid-row: 2 / 3;
-    border-right: #4d4d4d solid 2px;
+    /* border-right: #4d4d4d solid 2px; */
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
     align-items: center;
     padding: 8px 0;
     gap: 8px;
+    background-color: white;
 }
 
 #content {
 
     grid-column: 2 / 3;
     grid-row: 2 / 3;
+    background-color: white;
 }
 
 #footer {
@@ -75,7 +81,7 @@ body {
     border: #4d4d4d solid 2px;
     align-items: center;
     justify-content: center;
-    color: #4d4d4d;
+    color: black;
 }
 
 #addProjectButton, #tabHeader {
@@ -139,9 +145,9 @@ body {
 
     height: 1.5rem;
     width: 15rem;
-    background-color: #f2f6ff;
+    background-color: white;
     border: #4d4d4d solid 2px;
-    color: #4d4d4d;
+    color: black;
 }
 
 #sidebarContainer>button:hover {
@@ -191,7 +197,7 @@ body {
     margin: 0 3rem;
     padding: 8px 8px;
     border: 2px solid transparent;
-    background-image: linear-gradient(to right, #f5f7f9, #f5f7f9), linear-gradient(to bottom, #f5f7f9, #f5f7f9), linear-gradient(to left, #f5f7f9, #4d4d4d), linear-gradient(to bottom, #f5f7f9, #f5f7f9);
+    background-image: linear-gradient(to right, white, white), linear-gradient(to bottom, white, white), linear-gradient(to left, white, #4d4d4d), linear-gradient(to bottom, white, white);
     background-origin: border-box;
     background-size: 100% 2px, 2px 100%, 100% 2px, 2px 100%;
     background-position: top left, top right, bottom right, bottom left;
@@ -234,6 +240,7 @@ body {
     border: #4d4d4d solid 2px;
     padding: 4px 8px;
     height: 2rem;
+    white-space: pre-wrap;
 }
 
 .fullSummary {
@@ -246,6 +253,7 @@ body {
     grid-row: 2 / 3;
     border: #4d4d4d solid 2px;
     padding: 4px 8px;
+    white-space: pre-wrap;
 }
 
 .taskPriority {
@@ -255,6 +263,16 @@ body {
     display: flex;
     justify-content: flex-end;
     align-items: flex-end;
+}
+
+.High {
+
+    background-color: #F5BB00;
+}
+
+.Urgent {
+
+    background-color: #F93943;
 }
 
 .dueDate {
@@ -272,6 +290,7 @@ body {
     justify-content: center;
     align-items: center;
     font-size: 5rem;
+    margin: clamp(16px, 10%, 3rem);
     height: calc(100vh - 250px);
 }
 

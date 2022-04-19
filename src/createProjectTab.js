@@ -61,6 +61,7 @@ export function addTaskToDOM(projectInList, taskLoc) {
     const newTask = document.createElement("div");
     newTask.setAttribute("id", `${taskLoc}`);
     newTask.classList.add("taskBox");
+    newTask.classList.add(`${currentTask.priority}`);
 
     const taskTitle = document.createElement("div");
     taskTitle.textContent = currentTask.title;
@@ -135,6 +136,7 @@ function createTaskForm() {
     inputDue.setAttribute("type", "date");
     inputDue.setAttribute("id", "inputDue");
     inputDue.setAttribute("name", "dueDate");
+    inputDue.setAttribute("required", "");
 
     taskForm.appendChild(labelDue);
     taskForm.appendChild(inputDue);

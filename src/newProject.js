@@ -12,10 +12,6 @@ function newProject(projectName) {
         if (!priority) {
             priority = "Low";
         }
-        // if (dueDate) {
-        //     dueDate = addDays(new Date(dueDate), 1);
-        //     dueDate = format(new Date(dueDate), "EEE MMM d, yyyy");
-        // };
         const todoItem = {title, summary, dueDate, priority};
 
         for (let i = 0; i < taskList.length; i++) {
@@ -44,43 +40,19 @@ function newProject(projectName) {
 
     function editTask(taskLoc, title, summary, dueDate, priority) {
 
-        const todoItem = taskList[taskLoc];
-        todoItem.title = title;
-        todoItem.summary = summary;
-        if (dueDate) {
-            dueDate = addDays(new Date(dueDate), 1);
-            dueDate = format(new Date(dueDate), "EEE MMM d, yyyy");
-        };
-        todoItem.dueDate = dueDate;
-        todoItem.priority = priority;
+        // const todoItem = taskList[taskLoc];
+        // todoItem.title = title;
+        // todoItem.summary = summary;
+        // if (dueDate) {
+        //     dueDate = addDays(new Date(dueDate), 1);
+        //     dueDate = format(new Date(dueDate), "EEE MMM d, yyyy");
+        // };
+        // todoItem.dueDate = dueDate;
+        // todoItem.priority = priority;
+        removeTask(taskLoc);
+        addTask(title, summary, dueDate, priority);
     }
 
-    // function orderTasks() {
-
-    //     const newList = [ ];
-    //     for (let i = 0; i < taskList.length; i++){
-
-    //         const nextTodo = taskList[i];
-    //         for (let j = 0; j < newList.length; j++) {
-
-    //             if (nextTodo < newList[j]) {
-    //                 newList.splice[j - 1, 0, nextTodo];
-    //                 j = newList.length;
-    //             };             
-    //         };
-    //     };
-    //     taskList.splice(0, taskList.length);
-    //     for (let i = 0; i < newList.length; i++) {
-
-    //         const itemToAdd = newList[i];
-    //         const title = itemToAdd.title;
-    //         const summary = itemToAdd.summary;
-    //         const dueDate = itemToAdd.dueDate;
-    //         const priority = itemToAdd.priority;
-
-    //         addTask(title, summary, dueDate, priority);
-    //     };
-    // };
     return {projectName, projectID, taskList, addTask, removeTask, editTask};
 };
 

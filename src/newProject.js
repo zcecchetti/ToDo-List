@@ -1,14 +1,34 @@
-import generateTab, { deleteTab, addTaskToDOM, removeTaskForm } from "./createProjectTab";
-import { format, addDays, isBefore, isEqual, isAfter } from 'date-fns'
+import generateTab, { deleteTab } from "./createProjectTab";
+import { isBefore, isEqual} from 'date-fns'
 
-const projectList = [ ];
+// check storage
+if (localStorage.getItem("test2")) {
+
+    var projectList = JSON.parse(localStorage.getItem("test2"));
+    console.log(projectList);
+    projectListLoad();
+} else {
+
+    var projectList = [ ];
+};
+
+function updateProjectList() {
+
+    localStorage.setItem("test2", JSON.stringify(projectList));
+    console.log(projectList)
+}
 
 function newProject(projectName) {
 
     const taskList = [ ];
     const projectID = `project${projectList.length}`;
-    function addTask(title, summary, dueDate, priority) {
 
+    return {projectName, projectID, taskList};
+};
+
+function addTask(projectInList, title, summary, dueDate, priority) {
+
+        const taskList = projectInList.taskList;
         if (!priority) {
             priority = "Low";
         }
@@ -32,19 +52,20 @@ function newProject(projectName) {
         if (taskList.length === 0) {
             taskList.push(todoItem);
         };
-    };
-    function removeTask(taskLoc) {
+        updateProjectList();
+};
 
-        taskList.splice(taskLoc, 1);
-    };
+function editTask(projectInList, taskLoc, title, summary, dueDate, priority) {
 
-    function editTask(taskLoc, title, summary, dueDate, priority) {
+    removeTask(projectInList, taskLoc);
+    addTask(projectInList, title, summary, dueDate, priority);
+    updateProjectList();
+};
 
-        removeTask(taskLoc);
-        addTask(title, summary, dueDate, priority);
-    }
+function removeTask(projectInList, taskLoc) {
 
-    return {projectName, projectID, taskList, addTask, removeTask, editTask};
+    const taskList = projectInList.taskList;
+    taskList.splice(taskLoc, 1);
 };
 
 function addProjectToDOM(project) {
@@ -70,6 +91,15 @@ window.createProject = function() {
     const index = findIndex(project)
     addProjectToDOM(projectList[index]);
     removeForm();
+};
+
+function projectListLoad() {
+
+    for (let i = 0; i < projectList.length; i++) {
+        const project = projectList[i];
+        addProjectToDOM(project);
+        console.log(project);
+    };
 };
 
 function findIndex(project) {
@@ -160,7 +190,7 @@ function getAndCreateTask() {
     const priority = getPriority();
     const projectInList = getCurrentProject();
 
-    projectInList.addTask(taskTitle, taskSummary, dueDate, priority);
+    addTask(projectInList, taskTitle, taskSummary, dueDate, priority);
 
     deleteTab();
     generateTab(projectInList);
@@ -175,7 +205,7 @@ function getAndUpdateTask() {
     const projectInList = getCurrentProject();
     const taskLoc = getCurrentTask();
 
-    projectInList.editTask(taskLoc, taskTitle, taskSummary, dueDate, priority);
+    editTask(projectInList, taskLoc, taskTitle, taskSummary, dueDate, priority);
 
     deleteTab()
     generateTab(projectInList);
